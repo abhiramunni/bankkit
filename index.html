@@ -679,3 +679,48 @@ function openSheet(id){
   '<p class="catch" style="margin-top:10px"><b>The catch:</b> '+esc(a.catch)+'.</p>'+
   '<p style="margin-top:14px"><b>On ₹1,00,000 it pays '+inr(yearlyInterest(a,100000))+' a year. On ₹4,00,000 it pays '+inr(yearlyInterest(a,400000))+' a year.</b></p>'+
   '<div style="display:flex;gap:10px;margin-top:18px"><button class="btn btn-gold" type="button" id="sheetStar" style="flex:1;justify-content:center">'+(state.stars.includes(a.id)?'Shortlisted':'Add to shortlist')+'</button>'+
+  '<button class="btn btn-line" type="button" id="sheetClose">Close</button></div>';
+  $('#sheetOverlay').classList.add('show');
+  $('#sheetX').addEventListener('click',closeSheet);
+  $('#sheetClose').addEventListener('click',closeSheet);
+  $('#sheetStar').addEventListener('click',()=>{toggleStar(a.id);openSheet(a.id);});
+}
+function closeSheet(){$('#sheetOverlay').classList.remove('show');}
+$('#sheetOverlay').addEventListener('click',e=>{if(e.target.id==='sheetOverlay')closeSheet();});
+/* ---------- filters ---------- */
+document.querySelectorAll('#filterChips .chip').forEach(c=>c.addEventListener('click',()=>{
+  document.querySelectorAll('#filterChips .chip').forEach(x=>x.classList.remove('on'));
+  c.classList.add('on');state.filter=c.getAttribute('data-f');save();renderGrid();
+}));
+/* ---------- calculator wiring ---------- */
+const balRange=$('#balRange'),balInput=$('#balInput');
+if(balRange)balRange.addEventListener('input',()=>{state.balance=+balRange.value;save();renderCalc();});
+if(balInput)balInput.addEventListener('change',()=>{
+  let v=Math.max(0,Math.min(10000000,+balInput.value||0));
+  state.balance=v;save();renderCalc();
+});
+/* ---------- copy / erase / toast ---------- */
+let toastT=null;
+function toast(msg){
+  const t=$('#toast');if(!t)return;
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2400);
+}
+$('#copyBtn').addEventListener('click',()=>{
+  const starred=state.stars.length?state.stars.map(id=>{const a=ACCOUNTS.find(x=>x.id===id);return a?a.name+' ('+a.rate+' p.a., min '+a.minLabel+')':'';}).filter(Boolean).join('\n- '):'none yet';
+  const ranked=state.answers.length===4?quizScores().slice(0,3).map((r,i)=>(i+1)+'. '+r.a.name+' — '+r.pct+'% match').join('\n'):'quiz not finished';
+  const txt='BankKit — my zero-balance shortlist\n\nMy top matches:\n'+ranked+'\n\nStarred:\n- '+starred+'\n\nUsual balance: '+inr(state.balance)+' → best earner pays '+inr(Math.max.apply(null,ACCOUNTS.map(a=>yearlyInterest(a,state.balance))))+' a year.\nRates indicative, Nov 2026 — check the bank site before opening.';
+  const done=()=>toast('Summary copied');
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,function(){fallbackCopy(txt);done();});}
+  else{fallbackCopy(txt);done();}
+});
+function fallbackCopy(txt){
+  const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');}catch(e){}
+  document.body.removeChild(ta);
+}
+$('#eraseBtn').addEventListener('click',()=>{
+  if(!confirm('Erase your stars, answers, checklist and balance from this device?'))return;
+  try{localStorage.removeItem(KEY);}catch(e){}
+  state={stars:[],docs:{},answers:[],filter:'all',balance:100000,seen:true,coached:true};
