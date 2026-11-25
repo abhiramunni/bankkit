@@ -174,3 +174,37 @@ section{padding:34px 0 8px}
 .panel{background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}
 .panel h3{font-size:1.3rem;margin-bottom:4px}
 .check{display:flex;gap:12px;align-items:flex-start;padding:13px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+.check:last-child{border-bottom:none}
+.check input{width:22px;height:22px;accent-color:var(--bronze);flex:none;margin-top:2px;cursor:pointer}
+.check b{display:block;font-size:.98rem}
+.check span{font-size:.87rem;color:var(--ink2)}
+.ring-wrap{display:flex;align-items:center;gap:16px;margin:16px 0 4px}
+.ring{width:86px;height:86px;flex:none}
+.ring .bg{stroke:#eadfc6}
+.ring .fg{stroke:var(--bronze);stroke-linecap:round;transition:stroke-dashoffset .5s ease}
+.ring-txt{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem}
+.steps{counter-reset:st;margin-top:6px}
+.steps li{list-style:none;display:flex;gap:13px;padding:11px 0;border-bottom:1px solid var(--line)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{counter-increment:st;content:counter(st);width:30px;height:30px;flex:none;border-radius:50%;background:var(--paper2);color:var(--bronze-d);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.steps b{display:block}
+.steps span{font-size:.88rem;color:var(--ink2)}
+.flat-band{border-radius:20px;overflow:hidden;margin:18px 0;position:relative;height:230px}
+.flat-band img{width:100%;height:100%;object-fit:cover;animation:kb 30s ease-in-out infinite alternate}
+.flat-band .cap{position:absolute;left:16px;bottom:14px;background:rgba(20,12,5,.72);color:#fdf8ec;border-radius:12px;padding:10px 14px;font-size:.88rem;max-width:520px}
+/* ---------- guides ---------- */
+.guide{background:var(--cream);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
+.guide button{width:100%;text-align:left;background:none;border:none;padding:17px 18px;display:flex;gap:12px;align-items:center;font-size:1.02rem;font-weight:700;color:var(--ink)}
+.guide button .g-ic{width:34px;height:34px;flex:none;border-radius:10px;background:var(--paper2);color:var(--bronze-d);display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+.guide button .chev{margin-left:auto;color:var(--ink3);font-size:1.2rem;transition:transform .25s}
+.guide.open button .chev{transform:rotate(180deg)}
+.guide .g-body{display:none;padding:0 18px 18px 64px;font-size:.93rem;color:var(--ink2)}
+.guide.open .g-body{display:block}
+.guide .g-body b{color:var(--ink)}
+/* ---------- shortlist / footer ---------- */
+.short-strip{display:flex;gap:12px;overflow-x:auto;padding:6px 2px 12px;scrollbar-width:none}
+.short-strip::-webkit-scrollbar{display:none}
+.short-card{flex:none;width:250px;background:var(--cream);border:1.5px solid var(--bronze);border-radius:16px;padding:16px}
+.short-card .bank{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.short-card b{font-family:'Fraunces',serif;font-size:1.1rem;display:block;margin:2px 0 6px}
+.short-card p{font-size:.86rem;color:var(--ink2)}
