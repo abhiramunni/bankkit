@@ -403,3 +403,41 @@ footer .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-cont
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
     <button class="btn btn-ink" id="copyBtn" type="button">Copy my summary</button>
     <button class="btn btn-line" id="eraseBtn" type="button">Erase everything on this device</button>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="row">
+    <span><b class="serif" style="font-size:1.1rem">BankKit</b> · Find a zero-balance account that fits you.</span>
+    <span>Built for India · November 2026</span>
+  </div>
+  <p class="disc">Rates, fees and minimum-balance rules are indicative, from the banks' published pages as of November 2026. Banks change slabs and charges without notice — check the bank's own website or rate card before opening an account. BankKit is an educational comparison tool, not financial advice, and is not affiliated with any bank named here. Deposits in Indian banks are insured up to ₹5 lakh per depositor per bank by DICGC. Your answers, stars and checklist are stored only in your browser (localStorage) and never leave this device.</p>
+</div></footer>
+
+<!-- detail sheet -->
+<div class="overlay" id="sheetOverlay" role="dialog" aria-modal="true" aria-label="Account details">
+  <div class="sheet" id="sheetBox"></div>
+</div>
+
+<!-- coach -->
+<div class="coach" id="coach">
+  <div class="coach-card">
+    <div class="step-tag" id="coachTag">Step 1 of 3</div>
+    <h3 id="coachTitle">Welcome to BankKit</h3>
+    <p id="coachText"></p>
+    <div class="btn-row">
+      <button class="btn btn-line" id="coachSkip" type="button">Skip tour</button>
+      <button class="btn btn-gold" id="coachNext" type="button" style="flex:1;justify-content:center">Next</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+'use strict';
+/* ---------- data (rates: banks' published slabs, Nov 2026 — indicative) ---------- */
+const ACCOUNTS=[
+{id:'sbi',bank:'State Bank of India',name:'Insta Plus Savings (YONO)',min:0,minLabel:'₹0',rate:'2.50%',rateNote:'flat, on all balances',debit:'Free virtual card; physical ~₹150/yr',upi:true,open:'YONO app + Video KYC',branch:'22,000+ branches',best:'Trust, and a branch in every town',catch:'Lowest interest of the eight — your money barely grows',tags:['zero','branch','govt'],slabs:[{upto:Infinity,r:0.025}]},
+{id:'kotak',bank:'Kotak Mahindra',name:'811 Digital Savings',min:0,minLabel:'₹0',rate:'2.50%',rateNote:'flat; ActivMoney sweep to FD up to 5.50%',debit:'Virtual card free; physical from ₹399',upi:true,open:'App + Video KYC, in minutes',branch:'Digital-first',best:'Students and daily UPI users',catch:'Flat rate, and the physical card costs extra',tags:['zero','digital'],slabs:[{upto:Infinity,r:0.025}]},
