@@ -449,3 +449,29 @@ const ACCOUNTS=[
 {id:'bsbda',bank:'Any bank — your RBI right',name:'BSBDA / Jan Dhan account',min:0,minLabel:'₹0',rate:'2.50%',rateNote:'flat',debit:'Free RuPay debit card',upi:true,open:'Any branch, with Aadhaar + PAN',branch:'Every bank must offer it',best:'The no-frills account no bank can refuse',catch:'Basic limits; Jan Dhan adds ₹2L accident cover + ₹10,000 overdraft',tags:['zero','branch','govt'],slabs:[{upto:Infinity,r:0.025}]}
 ];
 const QUIZ=[
+{q:'How much will you usually keep in the account?',sub:'Be honest — the interest slabs depend on it.',opts:[
+ {t:'Under ₹10,000',s:'I keep it light — salary in, bills out.',pts:{sbi:3,kotak:3,idfc:2,au:2,equitas:2,jio:3,bsbda:3,jupiter:0}},
+ {t:'₹10,000 – ₹1 lakh',s:'A month or two of expenses, sitting in the bank.',pts:{sbi:2,kotak:2,idfc:2,au:2,equitas:2,jio:2,bsbda:2,jupiter:2}},
+ {t:'₹1 – 5 lakh',s:'Real savings, parked for a goal.',pts:{equitas:3,idfc:3,au:2,jio:1,sbi:1,kotak:1,bsbda:1,jupiter:1}},
+ {t:'Above ₹5 lakh',s:'A serious balance — it should work harder.',pts:{au:3,idfc:3,equitas:2,sbi:1,kotak:1,jio:0,bsbda:1,jupiter:1}}]},
+{q:'Do you need a branch nearby?',sub:'Some accounts live entirely in an app.',opts:[
+ {t:'Yes, often',s:'I like walking in and talking to someone.',pts:{sbi:3,bsbda:3,au:2,equitas:2,idfc:1,kotak:0,jupiter:0,jio:0}},
+ {t:'Rarely',s:'Once in a while — a passbook update, a form.',pts:{sbi:2,kotak:1,idfc:1,au:1,equitas:1,jio:1,bsbda:1,jupiter:1}},
+ {t:'Never — the app is fine',s:'If the app works, I never need a counter.',pts:{kotak:3,jupiter:3,jio:3,idfc:2,au:1,equitas:1,sbi:0,bsbda:0}}]},
+{q:'What matters most to you?',sub:'Pick the one you would not give up.',opts:[
+ {t:'No fees, ever',s:'Zero balance, zero surprise charges.',pts:{sbi:3,kotak:3,jio:3,bsbda:3,au:2,equitas:2,idfc:2,jupiter:0}},
+ {t:'Highest interest',s:'Every rupee of interest counts.',pts:{equitas:3,idfc:3,au:3,jio:2,sbi:0,kotak:0,bsbda:0,jupiter:0}},
+ {t:'The best app',s:'Clean design, fast UPI, smart spending views.',pts:{jupiter:3,kotak:3,idfc:2,jio:2,sbi:1,au:1,equitas:1,bsbda:0}},
+ {t:'Salary & government work',s:'Salary credit, scholarships, subsidies, pensions.',pts:{sbi:3,bsbda:2,idfc:2,au:1,kotak:1,jupiter:1,equitas:1,jio:0}}]},
+{q:'How do you want to open it?',sub:'Both routes end with the same account.',opts:[
+ {t:'Fully online, in minutes',s:'App + a 2-minute video call. No branch visit.',pts:{kotak:3,jupiter:3,jio:3,idfc:2,sbi:2,au:2,equitas:1,bsbda:0}},
+ {t:'Happy to visit a branch',s:'I will walk in with my documents.',pts:{sbi:3,bsbda:3,au:2,equitas:2,idfc:2,kotak:1,jupiter:1,jio:0}}]}
+];
+const DOCS=[
+{id:'aadhaar',t:'Aadhaar card',s:'Your main ID and address proof. Keep the phone number linked to it active — OTPs come there.'},
+{id:'pan',t:'PAN card',s:'Mandatory for opening a savings account. The bank checks it against your name.'},
+{id:'photo',t:'One passport photo',s:'For the form and the video-KYC call. A clear phone photo works for digital accounts.'},
+{id:'addr',t:'Address proof (if different)',s:'Only if your current address is not on your Aadhaar — rent agreement or utility bill works.'},
+{id:'sig',t:'Your signature',s:'Sign on plain white paper for the bank’s record. Digital accounts capture it on the video call.'}
+];
+const GUIDES=[
