@@ -257,3 +257,54 @@ footer .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-cont
   <div class="wrap head-in">
     <a class="logo" href="#top"><span class="mark">₹</span><span><b>BankKit</b><small>Zero-balance finder</small></span></a>
     <nav>
+      <a href="#match">Match</a><a href="#compare">Compare</a><a href="#earn">Earn</a><a href="#open">Open it</a><a href="#know">Know this</a>
+    </nav>
+    <button class="short-chip" id="shortCount" type="button" title="My shortlist">Shortlist · 0</button>
+  </div>
+</header>
+
+<div id="top" class="hero">
+  <div class="hero-photo">
+    <img src="bankkit-hero.webp" alt="A young man receiving his new savings passbook at a warm, sunlit bank branch" onerror="this.style.display='none'">
+    <div class="hero-copy"><div class="wrap">
+      <span class="pill pill-bronze">8 accounts compared · November 2026</span>
+      <h1>A bank account that <em>never fines you</em> for being broke.</h1>
+      <p>Some accounts charge you for a low balance. Some pay you 7% a year. Answer 4 quick questions and BankKit ranks the right one for you — then shows exactly what your money earns there.</p>
+      <div class="cta-row">
+        <a class="btn btn-gold" href="#match">Find my match →</a>
+        <a class="btn btn-ghost" href="#compare">Compare all 8</a>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<div class="wrap stats">
+  <div class="stat"><b>8</b><span>accounts compared, with the catch on each</span></div>
+  <div class="stat"><b>6</b><span>with a true ₹0 minimum balance</span></div>
+  <div class="stat"><b>7.00%</b><span>top interest rate on ₹1–5 lakh</span></div>
+  <div class="stat"><b>₹5 lakh</b><span>DICGC cover per bank, per person</span></div>
+</div>
+
+<div class="wrap">
+  <div class="rail">
+    <a href="#match"><span class="n">1</span><span><b>Match</b><small>4 questions, your ranking</small></span></a>
+    <a href="#compare"><span class="n">2</span><span><b>Compare</b><small>all 8, side by side</small></span></a>
+    <a href="#earn"><span class="n">3</span><span><b>Earn</b><small>what your balance pays</small></span></a>
+    <a href="#open"><span class="n">4</span><span><b>Open it</b><small>documents &amp; steps</small></span></a>
+    <a href="#know"><span class="n">5</span><span><b>Know this</b><small>6 things before you sign</small></span></a>
+  </div>
+</div>
+
+<!-- MATCH -->
+<section id="match"><div class="wrap">
+  <div class="sec-head">
+    <div class="kicker">Step 1 · Matchmaker</div>
+    <h2>Four questions. Your ranking.</h2>
+    <p>No forms, no phone number, nothing sent anywhere. Your answers stay on this device and only change the ranking below.</p>
+  </div>
+  <div class="quiz-card">
+    <div class="quiz-top"><b id="quizTitle">Find your match</b><div class="dots" id="quizDots"></div></div>
+    <div class="quiz-body" id="quizBody"></div>
+  </div>
+  <div class="helper"><b>Plain words:</b> “Minimum balance” is the amount a bank makes you keep, or it fines you. A <b>zero-balance account</b> has no such rule — your balance can touch ₹0 and nothing happens. Six of the eight accounts below are zero-balance.</div>
+</div></section>
