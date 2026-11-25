@@ -137,3 +137,40 @@ section{padding:34px 0 8px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .acard{background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;animation:cardIn .5s ease both}
 @keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.acard .bank{font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.acard h3{font-size:1.25rem}
+.acard .rate-row{display:flex;align-items:baseline;gap:10px}
+.acard .rate{font-family:'Fraunces',serif;font-size:2rem;font-weight:700;color:var(--bronze-d)}
+.acard .rate-note{font-size:.85rem;color:var(--ink2)}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;font-size:.88rem;border-top:1px dashed var(--line);padding-top:12px}
+.kv div b{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.acard .best{font-size:.9rem}
+.acard .best b{color:var(--bronze-d)}
+.acard .catch{font-size:.86rem;color:var(--terra);background:var(--terra-l);border-radius:10px;padding:9px 12px}
+.acard .row-btns{display:flex;gap:8px;margin-top:auto}
+.acard .row-btns .btn{flex:1;justify-content:center;padding:11px 14px;font-size:.9rem}
+/* ---------- calculator ---------- */
+.calc{background:linear-gradient(150deg,#2e1f10,#4a2f14);color:#f6ead2;border-radius:22px;padding:26px;box-shadow:var(--shadow)}
+.calc h3{color:#fdf8ec;font-size:1.4rem}
+.calc .sub{color:#e8d5ae;font-size:.93rem;margin-top:6px}
+.calc input[type=range]{width:100%;margin:22px 0 6px;accent-color:#d9a441;height:6px}
+.calc .amt-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.calc .amt{font-family:'Fraunces',serif;font-size:2rem;font-weight:700;color:#f6d789}
+.calc input[type=number]{background:rgba(253,248,236,.12);border:1px solid rgba(253,248,236,.4);color:#fdf8ec;border-radius:12px;padding:10px 14px;font-size:1rem;width:170px;font-family:inherit}
+.calc input[type=number]:focus{outline:2px solid #d9a441}
+.earn-row{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid rgba(253,248,236,.14)}
+.earn-row:last-child{border-bottom:none}
+.earn-row .e-name{width:190px;flex:none}
+.earn-row .e-name b{display:block;font-size:.95rem}
+.earn-row .e-name span{font-size:.78rem;color:#d9c49a}
+.earn-bar{flex:1;height:14px;background:rgba(253,248,236,.14);border-radius:99px;overflow:hidden}
+.earn-bar i{display:block;height:100%;background:linear-gradient(90deg,#d9a441,#f6d789);border-radius:99px;transition:width .6s ease}
+.earn-amt{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;width:92px;text-align:right;flex:none}
+.earn-diff{font-size:.78rem;color:#d9c49a;width:120px;text-align:right;flex:none}
+.calc .note{font-size:.82rem;color:#d9c49a;margin-top:14px}
+
+/* ---------- open-it ---------- */
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start}
+.panel{background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}
+.panel h3{font-size:1.3rem;margin-bottom:4px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:13px 4px;border-bottom:1px solid var(--line);cursor:pointer}
