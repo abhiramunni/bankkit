@@ -638,3 +638,44 @@ function renderCalc(){
   }
 }
 
+/* ---------- documents ---------- */
+function renderDocs(){
+  const el=$('#docList');if(!el)return;
+  el.innerHTML=DOCS.map(d=>{
+    const on=!!state.docs[d.id];
+    return '<label class="check"><input type="checkbox" data-doc="'+d.id+'"'+(on?' checked':'')+'><span><b>'+esc(d.t)+'</b><span>'+esc(d.s)+'</span></span></label>';
+  }).join('');
+  const done=DOCS.filter(d=>state.docs[d.id]).length;
+  const pct=Math.round(done/DOCS.length*100);
+  const ring=$('#docRing');
+  if(ring)ring.style.strokeDashoffset=String(226.2*(1-done/DOCS.length));
+  const p=$('#docPct');if(p)p.textContent=pct+'% ready';
+  const c=$('#docCount');if(c)c.textContent=done+' of '+DOCS.length+' documents';
+  el.querySelectorAll('[data-doc]').forEach(cb=>cb.addEventListener('change',()=>{
+    state.docs[cb.getAttribute('data-doc')]=cb.checked;save();renderDocs();
+  }));
+}
+/* ---------- guides ---------- */
+function renderGuides(){
+  const el=$('#guideList');if(!el)return;
+  el.innerHTML=GUIDES.map((g,i)=>'<div class="guide" id="g'+i+'"><button type="button" data-g="'+i+'"><span class="g-ic">'+g.ic+'</span>'+esc(g.t)+'<span class="chev">▾</span></button><div class="g-body">'+esc(g.b)+'</div></div>').join('');
+  el.querySelectorAll('[data-g]').forEach(b=>b.addEventListener('click',()=>{
+    const card=document.getElementById('g'+b.getAttribute('data-g'));
+    if(card)card.classList.toggle('open');
+  }));
+}
+/* ---------- detail sheet ---------- */
+function openSheet(id){
+  const a=ACCOUNTS.find(x=>x.id===id);if(!a)return;
+  const box=$('#sheetBox');
+  box.innerHTML='<button class="x" type="button" id="sheetX" aria-label="Close">×</button>'+
+  '<span class="pill '+(a.min===0?'pill-bronze':'pill-terra')+'">'+(a.min===0?'Zero balance':'₹5,000 average balance')+'</span>'+
+  '<h3 style="margin-top:10px">'+esc(a.name)+'</h3><p class="muted">'+esc(a.bank)+'</p>'+
+  '<div class="kv" style="margin-top:14px"><div><b>Interest</b>'+a.rate+' p.a. — '+esc(a.rateNote)+'</div>'+
+  '<div><b>Minimum balance</b>'+a.minLabel+(a.min===0?' — no penalty, ever':' — or fees up to ₹300/month')+'</div>'+
+  '<div><b>Debit card</b>'+esc(a.debit)+'</div><div><b>UPI</b>'+(a.upi?'Yes — full UPI':'No')+'</div>'+
+  '<div><b>How to open</b>'+esc(a.open)+'</div><div><b>Branches</b>'+esc(a.branch)+'</div></div>'+
+  '<p style="margin-top:14px"><b>Best for:</b> '+esc(a.best)+'.</p>'+
+  '<p class="catch" style="margin-top:10px"><b>The catch:</b> '+esc(a.catch)+'.</p>'+
+  '<p style="margin-top:14px"><b>On ₹1,00,000 it pays '+inr(yearlyInterest(a,100000))+' a year. On ₹4,00,000 it pays '+inr(yearlyInterest(a,400000))+' a year.</b></p>'+
+  '<div style="display:flex;gap:10px;margin-top:18px"><button class="btn btn-gold" type="button" id="sheetStar" style="flex:1;justify-content:center">'+(state.stars.includes(a.id)?'Shortlisted':'Add to shortlist')+'</button>'+
