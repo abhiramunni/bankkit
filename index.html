@@ -208,3 +208,52 @@ section{padding:34px 0 8px}
 .short-card .bank{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
 .short-card b{font-family:'Fraunces',serif;font-size:1.1rem;display:block;margin:2px 0 6px}
 .short-card p{font-size:.86rem;color:var(--ink2)}
+.empty{border:1.5px dashed var(--line);border-radius:16px;padding:22px;text-align:center;color:var(--ink2);font-size:.93rem}
+footer{margin-top:44px;border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink2);font-size:.86rem}
+footer .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.disc{font-size:.8rem;color:var(--ink3);max-width:760px;margin-top:12px}
+/* ---------- modal / coach ---------- */
+.overlay{position:fixed;inset:0;z-index:150;background:rgba(20,12,5,.55);backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center}
+.overlay.show{display:flex}
+.sheet{background:var(--cream);border-radius:22px 22px 0 0;width:100%;max-width:620px;max-height:86vh;overflow-y:auto;padding:24px;animation:sheetUp .35s ease}
+@keyframes sheetUp{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.sheet h3{font-size:1.4rem}
+.sheet .x{float:right;background:var(--paper2);border:none;border-radius:50%;width:34px;height:34px;font-size:1rem}
+.coach{position:fixed;inset:0;z-index:160;background:rgba(20,12,5,.6);display:none;align-items:center;justify-content:center;padding:20px}
+.coach.show{display:flex}
+.coach-card{background:var(--cream);border-radius:22px;max-width:440px;width:100%;padding:28px;box-shadow:0 24px 60px rgba(0,0,0,.3);animation:sheetUp .35s ease}
+.coach-card .step-tag{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze)}
+.coach-card h3{font-size:1.5rem;margin:8px 0}
+.coach-card p{color:var(--ink2)}
+.coach-card .btn-row{display:flex;gap:10px;margin-top:22px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#f6ead2;padding:12px 20px;border-radius:999px;font-weight:600;font-size:.9rem;z-index:180;opacity:0;transition:all .35s ease;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (max-width:760px){
+  .opts{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .split{grid-template-columns:1fr}
+  nav{display:none}
+  .hero-photo{height:380px}
+  .earn-row{flex-wrap:wrap}
+  .earn-row .e-name{width:100%}
+  .earn-diff{display:none}
+  .earn-amt{width:auto}
+}
+
+</style>
+</head>
+<body>
+<!-- intro -->
+<div id="intro" role="button" aria-label="Skip intro" tabindex="0">
+  <div class="coin">₹</div>
+  <h1><span>B</span><span>a</span><span>n</span><span>k</span><span>K</span><span>i</span><span>t</span></h1>
+  <p>Find a bank account that never fines you for being broke.</p>
+  <div class="bar"><i></i></div>
+  <button class="skip" type="button">Tap to skip</button>
+</div>
+
+<header>
+  <div class="wrap head-in">
+    <a class="logo" href="#top"><span class="mark">₹</span><span><b>BankKit</b><small>Zero-balance finder</small></span></a>
+    <nav>
