@@ -495,3 +495,54 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
 function yearlyInterest(a,bal){
   let total=0,prev=0;
   for(const s of a.slabs){
+    const cap=Math.min(bal,s.upto),part=Math.max(0,cap-prev);
+    total+=part*s.r; prev=s.upto;
+    if(bal<=s.upto)break;
+  }
+  return Math.round(total);
+}
+/* ---------- compare ---------- */
+function filteredAccts(){
+  let list=ACCOUNTS.slice();
+  if(state.filter==='zero')list=list.filter(a=>a.min===0);
+  if(state.filter==='digital')list=list.filter(a=>a.tags.includes('digital'));
+  if(state.filter==='branch')list=list.filter(a=>a.tags.includes('branch'));
+  if(state.filter==='interest')list=list.slice().sort((x,y)=>{
+    const top=a=>Math.max.apply(null,a.slabs.map(s=>s.r));
+    return top(y)-top(x);
+  });
+  return list;
+}
+function renderGrid(){
+  const g=$('#acctGrid');if(!g)return;
+  g.innerHTML=filteredAccts().map((a,i)=>{
+    const starred=state.stars.includes(a.id);
+    return '<article class="acard" style="animation-delay:'+(i*0.05)+'s">'+
+    '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"><span class="bank">'+esc(a.bank)+'</span>'+
+    '<button class="star-btn'+(starred?' on':'')+'" type="button" data-star="'+a.id+'" aria-label="Star '+esc(a.name)+'"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M12 2.5l2.8 6.1 6.7.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.2 1.3-6.6L2.5 9.4l6.7-.8z"/></svg></button></div>'+
+    '<h3>'+esc(a.name)+'</h3>'+
+    '<div class="rate-row"><span class="rate">'+a.rate+'</span><span class="rate-note">interest p.a.<br>'+esc(a.rateNote)+'</span></div>'+
+    '<div>'+(a.min===0?'<span class="pill pill-bronze">Zero balance</span>':'<span class="pill pill-terra">₹5,000 avg. balance</span>')+' <span class="pill pill-ink">Min. balance '+a.minLabel+'</span></div>'+
+    '<div class="kv"><div><b>Debit card</b>'+esc(a.debit)+'</div><div><b>Open it</b>'+esc(a.open)+'</div>'+
+    '<div><b>Branches</b>'+esc(a.branch)+'</div><div><b>UPI</b>'+(a.upi?'Yes — full UPI':'No')+'</div></div>'+
+    '<p class="best"><b>Best for:</b> '+esc(a.best)+'.</p>'+
+    '<p class="catch"><b>The catch:</b> '+esc(a.catch)+'.</p>'+
+    '<div class="row-btns"><button class="btn btn-ink" type="button" data-detail="'+a.id+'">Full details</button>'+
+    '<button class="btn btn-line" type="button" data-star="'+a.id+'">'+(starred?'Shortlisted':'Add to shortlist')+'</button></div></article>';
+  }).join('');
+}
+document.addEventListener('click',e=>{
+  const st=e.target.closest('[data-star]');
+  if(st){toggleStar(st.getAttribute('data-star'));return;}
+  const dt=e.target.closest('[data-detail]');
+  if(dt){openSheet(dt.getAttribute('data-detail'));}
+});
+function toggleStar(id){
+  const i=state.stars.indexOf(id);
+  if(i>=0)state.stars.splice(i,1);else state.stars.push(id);
+  save();renderGrid();renderShortlist();
+  toast(i>=0?'Removed from shortlist':'Added to shortlist');
+}
+function renderShortlist(){
+  const el=$('#shortStrip');if(!el)return;
+  const n=state.stars.length;
