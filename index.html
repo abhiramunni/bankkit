@@ -355,3 +355,51 @@ footer .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-cont
   </div>
   <div class="flat-band">
     <img src="bankkit-flatlay.webp" alt="Savings passbook, debit cards, phone with a banking app, coins and a pen on cream paper" onerror="this.style.display='none'">
+    <div class="cap">Keep these ready before you start: Aadhaar, PAN, one photo, and the phone number linked to your Aadhaar.</div>
+  </div>
+  <div class="split">
+    <div class="panel">
+      <h3>Documents checklist</h3>
+      <p class="muted small">Tap to tick. Saved on this device.</p>
+      <div class="ring-wrap">
+        <svg class="ring" viewBox="0 0 86 86" aria-hidden="true">
+          <circle class="bg" cx="43" cy="43" r="36" fill="none" stroke-width="8"/>
+          <circle class="fg" id="docRing" cx="43" cy="43" r="36" fill="none" stroke-width="8" stroke-dasharray="226.2" stroke-dashoffset="226.2" transform="rotate(-90 43 43)"/>
+        </svg>
+        <div><div class="ring-txt" id="docPct">0% ready</div><div class="muted small" id="docCount">0 of 5 documents</div></div>
+      </div>
+      <div id="docList"></div>
+    </div>
+    <div class="panel">
+      <h3>How opening works</h3>
+      <ol class="steps">
+        <li><div><b>Pick the account</b><span>Star your top 2 from the Compare section, then read the catch on each.</span></div></li>
+        <li><div><b>Fill the form in the bank's app</b><span>Name, address, PAN, Aadhaar number. Ten minutes, no branch visit for digital accounts.</span></div></li>
+        <li><div><b>Video KYC — a 2-minute call</b><span>Show your PAN and face on camera. The bank verifies you on the spot; no paperwork to courier.</span></div></li>
+        <li><div><b>Set a nominee</b><span>Name one person who can access the money if something happens to you. It takes 30 seconds — do not skip it.</span></div></li>
+      </ol>
+      <div class="helper" style="margin:14px 0 0"><b>Video KYC vs branch KYC:</b> video KYC is accepted by RBI and is the fastest route. Branch KYC is the same account, just slower — pick it only if your Aadhaar phone number is not active.</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- KNOW -->
+<section id="know"><div class="wrap">
+  <div class="sec-head">
+    <div class="kicker">Step 5 · Know this</div>
+    <h2>Six things to know before you sign.</h2>
+    <p>These are the lines banks bury in the fine print. None of them is a reason to avoid banking — just things to check once, so nothing surprises you later.</p>
+  </div>
+  <div id="guideList"></div>
+</div></section>
+<!-- SHORTLIST -->
+<section id="shortlist"><div class="wrap">
+  <div class="sec-head">
+    <div class="kicker">My shortlist</div>
+    <h2>Your starred accounts.</h2>
+    <p>Tap the star on any account card to pin it here. Saved on this device, so you can compare your top two side by side before opening one.</p>
+  </div>
+  <div class="short-strip" id="shortStrip"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+    <button class="btn btn-ink" id="copyBtn" type="button">Copy my summary</button>
+    <button class="btn btn-line" id="eraseBtn" type="button">Erase everything on this device</button>
