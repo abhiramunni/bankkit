@@ -308,3 +308,50 @@ footer .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-cont
   </div>
   <div class="helper"><b>Plain words:</b> “Minimum balance” is the amount a bank makes you keep, or it fines you. A <b>zero-balance account</b> has no such rule — your balance can touch ₹0 and nothing happens. Six of the eight accounts below are zero-balance.</div>
 </div></section>
+<!-- COMPARE -->
+<section id="compare"><div class="wrap">
+  <div class="sec-head">
+    <div class="kicker">Step 2 · Compare</div>
+    <h2>All eight, side by side.</h2>
+    <p>Rates are the banks' published slabs as of November 2026 — indicative, not a promise. Always check the bank's own rate page before you open anything. Tap any card for the full detail sheet.</p>
+  </div>
+  <div class="chips" id="filterChips">
+    <button class="chip on" type="button" data-f="all">All 8</button>
+    <button class="chip" type="button" data-f="zero">Zero balance only</button>
+    <button class="chip" type="button" data-f="interest">Highest interest</button>
+    <button class="chip" type="button" data-f="digital">Fully digital</button>
+    <button class="chip" type="button" data-f="branch">Branch near me</button>
+  </div>
+  <div class="grid" id="acctGrid"></div>
+</div></section>
+
+<!-- EARN -->
+<section id="earn"><div class="wrap">
+  <div class="sec-head">
+    <div class="kicker">Step 3 · Interest calculator</div>
+    <h2>What does your balance actually earn?</h2>
+    <p>Move the slider to the amount you usually keep in the account. The bars use each bank's real slabs — so a ₹4 lakh balance earns very different money at different banks.</p>
+  </div>
+  <div class="calc">
+    <h3>Your usual balance</h3>
+    <p class="sub">Drag the slider, or type an amount. Interest shown is per year, before tax, at November 2026 slabs.</p>
+    <input type="range" id="balRange" min="0" max="1000000" step="5000" value="100000" aria-label="Usual balance">
+    <div class="amt-row">
+      <span class="amt" id="balAmt">₹1,00,000</span>
+      <input type="number" id="balInput" min="0" max="10000000" step="1000" value="100000" aria-label="Balance in rupees">
+      <span class="small" style="color:#d9c49a">per year, before tax</span>
+    </div>
+    <div id="earnList" style="margin-top:14px"></div>
+    <p class="note" id="earnNote"></p>
+  </div>
+  <div class="helper"><b>Why the bars differ:</b> most banks pay 2.50% on the first ₹1 lakh. The extra money comes from the slabs above it — Equitas pays 7.00% on the ₹1–5 lakh slice, IDFC FIRST pays 6.50% above ₹3 lakh. That is why the same ₹4 lakh earns ₹2,500 at SBI and ₹23,500 at Equitas.</div>
+</div></section>
+<!-- OPEN -->
+<section id="open"><div class="wrap">
+  <div class="sec-head">
+    <div class="kicker">Step 4 · Open it</div>
+    <h2>Opening takes 10 minutes, not a day.</h2>
+    <p>Most zero-balance accounts open fully online with Aadhaar + PAN + a 2-minute video call. Tick off what you already have.</p>
+  </div>
+  <div class="flat-band">
+    <img src="bankkit-flatlay.webp" alt="Savings passbook, debit cards, phone with a banking app, coins and a pen on cream paper" onerror="this.style.display='none'">
