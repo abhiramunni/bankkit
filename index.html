@@ -724,3 +724,56 @@ $('#eraseBtn').addEventListener('click',()=>{
   if(!confirm('Erase your stars, answers, checklist and balance from this device?'))return;
   try{localStorage.removeItem(KEY);}catch(e){}
   state={stars:[],docs:{},answers:[],filter:'all',balance:100000,seen:true,coached:true};
+  qStep=0;renderAll();toast('Everything erased');
+});
+/* ---------- coach ---------- */
+const COACH=[
+{t:'Answer 4 questions',x:'The Matchmaker ranks all 8 accounts for you — by your balance, your need for a branch, and what matters most. No sign-up, nothing leaves your phone.'},
+{t:'Compare, then check the catch',x:'Every card shows the rate, the minimum balance and the catch — the fee or limit the ad hides. Tap any card for the full detail sheet.'},
+{t:'See what your money earns',x:'The calculator uses each bank’s real slabs. The same ₹4 lakh earns ₹2,500 a year at SBI and ₹23,500 at Equitas — check it before you pick.'}
+];
+let coachStep=0;
+function showCoach(step){
+  coachStep=step;
+  $('#coachTag').textContent='Step '+(step+1)+' of '+COACH.length;
+  $('#coachTitle').textContent=COACH[step].t;
+  $('#coachText').textContent=COACH[step].x;
+  $('#coachNext').textContent=step===COACH.length-1?'Start →':'Next';
+  $('#coach').classList.add('show');
+}
+function hideCoach(){$('#coach').classList.remove('show');}
+$('#coachNext').addEventListener('click',()=>{
+  if(coachStep>=COACH.length-1){hideCoach();state.coached=true;save();}
+  else showCoach(coachStep+1);
+});
+$('#coachSkip').addEventListener('click',()=>{hideCoach();state.coached=true;save();});
+/* ---------- intro ---------- */
+function initIntro(){
+  const intro=$('#intro');
+  if(state.seen)intro.classList.add('quick');
+  const end=()=>{
+    if(intro.classList.contains('hide'))return;
+    intro.classList.add('hide');state.seen=true;save();
+    if(!state.coached)setTimeout(()=>showCoach(0),650);
+  };
+  const dur=state.seen?1100:3800;
+  setTimeout(end,dur);
+  intro.addEventListener('click',end);
+  intro.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();end();}});
+  const skip=intro.querySelector('.skip');
+  if(skip)skip.addEventListener('click',e=>{e.stopPropagation();end();});
+}
+/* ---------- init ---------- */
+function renderAll(){
+  document.querySelectorAll('#filterChips .chip').forEach(x=>x.classList.toggle('on',x.getAttribute('data-f')===state.filter));
+  renderGrid();renderShortlist();renderQuiz();renderCalc();renderDocs();renderGuides();
+}
+document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{}));
+$('#shortCount').addEventListener('click',()=>{
+  const el=document.getElementById('shortlist');if(el&&el.scrollIntoView)el.scrollIntoView({behavior:'smooth'});
+});
+renderAll();
+initIntro();
+</script>
+</body>
+</html>
