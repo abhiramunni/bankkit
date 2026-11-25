@@ -475,3 +475,23 @@ const DOCS=[
 {id:'sig',t:'Your signature',s:'Sign on plain white paper for the bank’s record. Digital accounts capture it on the video call.'}
 ];
 const GUIDES=[
+{ic:'§',t:'BSBDA: the account no bank can refuse',b:'RBI rules say every bank must offer a Basic Savings Bank Deposit Account — zero balance, free RuPay debit card, free passbook, and a minimum set of free services. If a bank pushes a paid account, ask for the BSBDA by name. Jan Dhan (PMJDY) is the government version of the same idea, with a ₹2 lakh accident cover and an overdraft of up to ₹10,000.'},
+{ic:'₹',t:'Your money is insured up to ₹5 lakh',b:'The Deposit Insurance and Credit Guarantee Corporation (DICGC) insures your deposits up to ₹5 lakh per person, per bank — including interest. The cover is per bank, not per account: ₹4 lakh in two accounts of the same bank is still one ₹5 lakh cover. Splitting money across two different banks doubles the cover.'},
+{ic:'!',t:'Check the charges page, not the ad',b:'Before opening, search the bank’s schedule of charges for four lines: debit card annual fee, SMS alert charges, ATM withdrawals beyond the free limit, and the minimum-balance penalty. A “free” account can still charge ₹150–300 a year for the card, and ₹20–25 per SMS pack. Zero-balance accounts should charge ₹0 for falling below a balance — because there is no balance to fall below.'},
+{ic:'◷',t:'Dormant accounts can freeze your money',b:'If an account has no customer-initiated transaction for 2 years, the bank marks it dormant. Your money is safe, but UPI and withdrawals stop until you re-activate it with KYC at a branch. Keep every account you care about alive with one small transaction a year.'},
+{ic:'↗',t:'Sweep FDs: idle money, better rate',b:'Some accounts (Kotak 811 ActivMoney, IDFC sweep) move money above a limit into a fixed deposit automatically, earning FD rates instead of 2.50%. It is a good feature if you keep a large idle balance — but check the sweep threshold and whether breaking the FD early costs a penalty.'},
+{ic:'◈',t:'Add a nominee — it takes 30 seconds',b:'A nominee is the person the bank hands the money to if something happens to you. Without one, your family needs a succession certificate, which can take months. Add the nominee while opening the account, and update it after marriage or a new child.'}
+];
+/* ---------- state ---------- */
+const KEY='bankkit_v1';
+let state={stars:[],docs:{},answers:[],filter:'all',balance:100000,seen:false,coached:false};
+try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s)state=Object.assign(state,s);}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+const $=s=>document.querySelector(s);
+const inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+
+/* ---------- interest math (slab-wise) ---------- */
+function yearlyInterest(a,bal){
+  let total=0,prev=0;
+  for(const s of a.slabs){
