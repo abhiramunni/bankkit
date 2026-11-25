@@ -594,3 +594,47 @@ function renderQuizResult(){
   const ranked=quizScores(),top=ranked[0];
   $('#quizTitle').textContent='Your ranking';
   body.innerHTML='<p class="quiz-q">Your best match: '+esc(top.a.name)+'</p>'+
+   '<p class="quiz-sub">'+esc(top.a.bank)+' · '+top.pct+'% match · '+esc(top.a.best)+'. The ranking below is a guide, not a verdict — read the catch on each before you decide.</p>'+
+   ranked.map((r,i)=>{
+     const starred=state.stars.includes(r.a.id);
+     return '<div class="match-row'+(i===0?' top':'')+'"><span class="match-rank">'+(i+1)+'</span>'+
+     '<div class="match-mid"><b>'+esc(r.a.name)+'</b> <span class="pill '+(r.a.min===0?'pill-bronze':'pill-terra')+'">'+(r.a.min===0?'Zero balance':'₹5,000 AMB')+'</span>'+
+     '<div class="m-sub">'+esc(r.a.bank)+' · '+r.a.rate+' p.a. · '+esc(r.a.best)+'</div>'+
+     '<div class="match-bar"><i style="width:'+r.pct+'%"></i></div></div>'+
+     '<span class="match-pct">'+r.pct+'%</span>'+
+     '<button class="star-btn'+(starred?' on':'')+'" type="button" data-star="'+r.a.id+'" aria-label="Star"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M12 2.5l2.8 6.1 6.7.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.2 1.3-6.6L2.5 9.4l6.7-.8z"/></svg></button></div>';
+   }).join('')+
+   '<div class="quiz-nav"><button class="btn btn-line" type="button" id="qAgain">↺ Answer again</button>'+
+   '<button class="btn btn-gold" type="button" id="qGoCompare" style="flex:1;justify-content:center">Compare the top 3 →</button></div>';
+  $('#qAgain').addEventListener('click',()=>{qStep=0;state.answers=[];save();renderQuiz();});
+  $('#qGoCompare').addEventListener('click',()=>{
+    const el=document.getElementById('compare');if(el&&el.scrollIntoView)el.scrollIntoView({behavior:'smooth'});
+  });
+}
+/* ---------- calculator ---------- */
+function renderCalc(){
+  const bal=state.balance;
+  const r=$('#balRange'),inp=$('#balInput'),amt=$('#balAmt');
+  if(r)r.value=Math.min(bal,1000000);
+  if(inp)inp.value=bal;
+  if(amt)amt.textContent=inr(bal);
+  const rows=ACCOUNTS.map(a=>({a,v:yearlyInterest(a,bal)})).sort((x,y)=>y.v-x.v);
+  const max=rows[0]?rows[0].v:1;
+  const sbiV=yearlyInterest(ACCOUNTS[0],bal);
+  const list=$('#earnList');if(!list)return;
+  list.innerHTML=rows.map(x=>{
+    const diff=x.v-sbiV;
+    return '<div class="earn-row"><div class="e-name"><b>'+esc(x.a.name)+'</b><span>'+esc(x.a.bank)+'</span></div>'+
+    '<div class="earn-bar"><i style="width:'+Math.max(2,Math.round(x.v/max*100))+'%"></i></div>'+
+    '<span class="earn-amt">'+inr(x.v)+'</span>'+
+    '<span class="earn-diff">'+(x.a.id==='sbi'?'baseline':(diff>0?'+'+inr(diff)+' vs SBI':diff===0?'same as SBI':'−'+inr(-diff)+' vs SBI'))+'</span></div>';
+  }).join('');
+  const note=$('#earnNote');
+  if(note){
+    const best=rows[0];
+    note.textContent=best.v>sbiV
+      ?'On '+inr(bal)+', '+best.a.name+' pays '+inr(best.v-sbiV)+' more per year than SBI — but check its catch in the Compare section first.'
+      :'On '+inr(bal)+', every account pays about the same — at this balance, pick on fees and convenience, not interest.';
+  }
+}
+
